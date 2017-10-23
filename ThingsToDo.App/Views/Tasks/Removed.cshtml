@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ThingsToDo.Models.ViewModels.TaskModel>
+@{
+
+    ViewBag.Title = "Removed";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="portlet-body">
+    <div class="mt-element-list">
+        <div class="mt-list-head list-todo red">
+            <div class="list-head-title-container">
+                <h3 class="list-title">@ThingsToDo.Resources.ThingsToDo.lblMyRemovedTasks</h3>
+                <div class="list-head-count">
+                    <div class="list-head-count-item">
+                        <i class="fa fa-table"></i> @Model.GroupBy(x => x.RemovedDate.ToString("dd MMMM, yyyy")).Count()
+                    </div>
+                    <div class="list-head-count-item">
+                        <i class="fa fa-close"></i> @Model.Count()
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:;">
+                <div class="list-count pull-right grey-mint">
+                    <i class="fa fa-plus"></i>
+                </div>
+            </a>
+        </div>
+        <div class="mt-list-container list-todo" id="accordion1" role="tablist" aria-multiselectable="true">
+            <div class="list-todo-line"></div>
+            <ul>
+                @*// prv*@
+                @foreach (var group in Model.GroupBy(x => x.RemovedDate.ToString("dd MMMM, yyyy")))
+                {
+                    <li class="mt-list-item">
+                        <div class="list-todo-icon bg-white">
+                            <i class="fa fa-table"></i>
+                        </div>
+                        <div class="list-todo-item dark">
+                            <a class="list-toggle-container collapsed" data-toggle="collapse" data-parent="#@group.FirstOrDefault().Id" onclick=" " href="#@group.FirstOrDefault().Id" aria-expanded="false">
+                                <div class="list-toggle done uppercase">
+                                    <div class="list-toggle-title bold">@group.FirstOrDefault().RemovedDate.ToString("dd MMMM, yyyy")</div>
+                                    <div class="badge badge-default pull-right bold">@group.Count()</div>
+                                </div>
+                            </a>
+                            <div class="task-list panel-collapse collapse" id="@group.FirstOrDefault().Id" aria-expanded="false" style="height: 0px;">
+                                <ul>
+
+                                    @foreach (var task in group)
+                                    {
+                                        <li class="task-list-item done">
+                                            <div class="task-status pull-left">
+                                                <a class="done" href="javascript:;">
+                                                    <i class="fa fa-close" style="color:orangered"></i>
+                                                </a>
+                                            </div>
+                                            <div class="task-content">
+                                                <h4 class="uppercase bold">
+                                                    <a href="javascript:;">@task.Title</a>
+                                                </h4>
+                                                <h5>
+                                                    <div class="task-icon">
+                                                        <a href="javascript:;">
+                                                            <i class="fa fa-navicon"></i> @task.CategoryName
+                                                        </a>
+                                                    </div>
+                                                </h5>
+                                                <p>@task.Description</p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script>
+        resourceStatus = '@ThingsToDo.Resources.ThingsToDo.lblRemovedTasks';
+</script>
+    <script src="~/Scripts/Tasks/Tasks.js"></script>
+    <script src="~/Scripts/Categories/Categories.js"></script>
+
+}

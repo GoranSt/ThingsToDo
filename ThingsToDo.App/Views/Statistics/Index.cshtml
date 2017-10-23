@@ -1,0 +1,115 @@
+﻿@using ThingsToDo.Resources;
+@{
+    ViewBag.Title = ThingsToDo.lblTaskStatistics;
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@section Styles{
+
+<link href="~/Content/Charts/c3/c3.min.css" rel="stylesheet" />
+
+}
+
+<div class="portlet box yellow">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>@ThingsToDo.lblTaskStatistics
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+        </div>
+    </div>
+    <div class="portlet-body" style="display: block;">
+        <h3>Default Tab</h3>
+        <div class="tabbable-line">
+            <ul class="nav nav-tabs ">
+                <li class="active">
+                    <a href="#timeSeries" data-toggle="tab" aria-expanded="true"> Axies </a>
+                </li>
+                <li class="">
+                    <a href="#pieTab" data-toggle="tab" aria-expanded="false"> Pie </a>
+                </li>
+                <li class="">
+                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false"> Data color </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="timeSeries">
+                    <p> @ThingsToDo.lblLast7Days</p>
+                    <p>
+                        <div id="timeSeriesWeeklyChart"></div>
+                    </p>
+                </div>
+                <div class="tab-pane" id="pieTab">
+                    <p> Howdy, I'm in Section 2. </p>
+                     
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <ul class="nav nav-tabs tabs-left">
+                                        <li class="active">
+                                            <a href="#tab__pieChartWeekly" data-toggle="tab" aria-expanded="false">@ThingsToDo.lblWeekly</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="#tab_pieChartMonthly" data-toggle="tab" aria-expanded="true">@ThingsToDo.lblMonthly</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="#tab_pieChartQuarterly" data-toggle="tab" aria-expanded="false">@ThingsToDo.lblQuarterly</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active in" id="tab_pieChartMonthly">
+                                            <p>
+                                                <div id="pieChartMonthly"></div>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_pieChartQuarterly">
+                                            <p>
+                                                <div id="pieChartQuarterly"></div>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab__pieChartWeekly">
+                                            <p>
+                                                <div id="pieChartWeekly"></div>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_6_4">
+                                            <p>
+                                                Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+                                                locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade
+                                                thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+                    <p>
+                       
+                        
+                    </p>
+                    <p>
+                        <a class="btn green" href="ui_tabs_accordions_navs.html#tab_15_2" target="_blank"> Activate this tab via URL </a>
+                    </p>
+                </div>
+                <div class="tab-pane" id="tab_15_3">
+                    <p> Howdy, I'm in Section 3. </p>
+                    <div id="dataColorChart"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+ <script>
+     var resourceStatistics = '@ThingsToDo.lblStatistics';
+    </script>
+<script src="~/Scripts/Charts/d3/d3.min.js"></script>
+<script src="~/Scripts/Charts/c3/c3.min.js"></script>
+<script src="~/Scripts/Statistics/Index.js"></script>
+}

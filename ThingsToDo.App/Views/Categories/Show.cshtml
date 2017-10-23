@@ -1,0 +1,51 @@
+﻿@using ThingsToDo.Resources;
+@{
+    ViewBag.Category = ViewBag.Title;
+    ViewBag.Title = "Category: " + ViewBag.Title;
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@*<h2>@header</h2>*@
+@section Styles{
+    <link href="~/Content/Datatables/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet" />
+}
+
+<div class="form-group">
+    <button type="button" class="btn btn-lg green CreateTask">Add Task <i class="fa fa-plus"></i> </button>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="TasksTable" class="display table table-striped table-bordered table-hover responsive nowrap" cellspacing="0" width="100%" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Title</th>
+                    <th class="thDate">Description</th>
+                    <th>Until</th>
+                    <th class=""></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="comment more"></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var resourceCategoryTitle = '@ViewBag.Category';
+        var resourceTitle = '@ThingsToDo.lblTitle';
+        var resourceDescription = '@ThingsToDo.lblDescription';
+        var resourceAll = '@ThingsToDo.lblAll';
+        var resourceRequiredField = '@ThingsToDo.lblRequiredField';
+    </script>
+    <script src="~/Scripts/jQuery/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jQuery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+    <script src="~/Scripts/Datepicker/datetime.js"></script>
+    <script src="~/Scripts/Categories/Show.js"></script>
+    <script src="~/Scripts/Categories/Categories.js"></script>
+
+}
+

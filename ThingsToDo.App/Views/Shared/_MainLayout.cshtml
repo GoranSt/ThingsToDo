@@ -1,0 +1,340 @@
+﻿@using Microsoft.AspNet.Identity
+@using ThingsToDo.BL.Extensions
+@using ThingsToDo.Resources;
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - ThingsToDo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="#1 selling multi-purpose bootstrap admin theme sold in themeforest marketplace packed with angularjs, material design, rtl support with over thausands of templates and ui elements and plugins to power any type of web applications including saas and admin dashboards. Preview page of Theme #2 for statistics, charts, recent events and reports"
+          name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="~/fonts/googleapies.css" rel="stylesheet" />
+    <link href="~/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="~/Content/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/Content/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="~/Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="~/Content/assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="~/Content/assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom css -->
+    <link href="~/Content/assets/layouts/layout/css/custom.css" rel="stylesheet" />
+    <!-- calendar -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Sweeet Alerts -->
+    <link href="~/Content/SweetAlerts/sweetalert.css" rel="stylesheet" />
+    <!-- END THEME LAYOUT STYLES -->
+    @RenderSection("styles", required: false)
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <link href="~/Content/Custom/Site.css" rel="stylesheet" />
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+    <!-- BEGIN HEADER -->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner ">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="~/tasks/index">
+                    @*<img src="~/Content/Images/Logo/things-to-do.gif" alt="logo" class="logo-default" style="height:70px; width:150px; margin-bottom:30px;"  />*@
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN PAGE ACTIONS -->
+            <!-- DOC: Remove "hide" class to enable the page header actions -->
+            <div class="page-actions">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-circle btn-outline red dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        <span class="hidden-sm hidden-xs">New&nbsp;</span>&nbsp;
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="javascript:;" id="CreateTask">
+                                <i class="icon-docs"></i> Create task
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="CreateCategory">
+                                <i class="icon-layers"></i> Create category
+                            </a>
+                        </li>
+                        <li class="divider"> </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END PAGE ACTIONS -->
+            <!-- BEGIN PAGE TOP -->
+            <div class="page-top">
+                <!-- BEGIN HEADER SEARCH BOX -->
+                <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                <!-- END HEADER SEARCH BOX -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="dropdown dropdown-user">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <img alt="" class="img-circle" src="~/Content/assets/layouts/layout2/img/avatar3_small.jpg" />
+                                    <span class="username username-hide-on-mobile"> @User.Identity.GetFirstName()  </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="/Tasks/Index">
+                                            <i class="icon-docs"></i> @ThingsToDo.lblTasks
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="/Tasks/Finished">
+                                            <i class="icon-check"></i> @ThingsToDo.lblFinishedTasks
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Tasks/Removed">
+                                            <i class="icon-close"></i> @ThingsToDo.lblRemovedTasks
+                                        </a>
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="/Statistics/Index">
+                                            <i class="icon-bar-chart"></i> @ThingsToDo.lblStatistics
+                                        </a>
+                                    </li>
+                                    <li class="divider"> </li>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+
+                                            <li> <a class="btn btn-circle" href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-key"></i> Log out</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+                        <li class="dropdown dropdown-extended quick-sidebar-toggler">
+
+                            <span class="sr-only">Log out</span>
+                            <i class="icon-logout"></i>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="clearfix"> </div>
+
+    <div class="page-container">
+
+        <div class="page-sidebar-wrapper">
+
+            <div class="page-sidebar navbar-collapse collapse">
+
+                <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <li class="nav-item start">
+                        <a href="~/Tasks/Index" class="nav-link nav-toggle">
+                            <i class="icon-docs"></i>
+                            <span class="title">@ThingsToDo.lblTasks</span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="categoryItem">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-layers"></i>
+                            <span class="title">@ThingsToDo.lblCategories</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu" id="ulCategoryList"></ul>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="~/Tasks/Finished" class="nav-link nav-toggle">
+                            <i class="icon-check"></i>
+                            <span class="title">@ThingsToDo.lblFinishedTasks</span>
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="~/Tasks/Removed" class="nav-link nav-toggle">
+                            <i class="icon-close"></i>
+                            <span class="title">@ThingsToDo.lblRemovedTasks</span>
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="~/Statistics/Index" class="nav-link nav-toggle">
+                            <i class="icon-bar-chart"></i>
+                            <span class="title">@ThingsToDo.lblStatistics</span>
+                            <span class="arrow"></span>
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="page-content-wrapper">
+
+            <div class="page-content">
+
+                <h1 class="page-title">
+                    @ViewBag.Title
+                  
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="/Tasks/Index">@ThingsToDo.lblTasks</a>
+                            
+                        </li>
+                    </ul>
+                    <div class="page-toolbar">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                                Actions
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="/Tasks/Index">
+                                        <i class="icon-docs"></i> @ThingsToDo.lblTasks
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Tasks/Finished">
+                                        <i class="icon-check"></i> @ThingsToDo.lblFinishedTasks
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Tasks/Removed">
+                                        <i class="icon-close"></i> @ThingsToDo.lblRemovedTasks
+                                    </a>
+                                </li>
+
+                                <li class="divider"> </li>
+                                <li>
+                                    <a href="/Statistics/Index">
+                                        <i class="icon-bar-chart"></i> @ThingsToDo.lblStatistics
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="globalModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1">
+
+                    <div class="modal-dialog" id="modalDialogGlobal">
+
+                        <div id="globalModalContent" class="modal-content" style="float:left; width: 100%; clear: both">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2017 &copy; &nbsp;|&nbsp; By
+            <a target="_blank" href="https://www.linkedin.com/in/goran-stojanovski-73404a95/">Goran Stojanovski</a> &nbsp;|&nbsp;
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+
+        <div class="quick-nav-overlay"></div>
+    </div>
+
+    <!--[if lt IE 9]>
+    <script src="../assets/global/plugins/respond.min.js"></script>
+    <script src="../assets/global/plugins/excanvas.min.js"></script>
+    <script src="../assets/global/plugins/ie8.fix.min.js"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/Content/assets/global/plugins/moment.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="~/Content/assets/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/Content/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="~/Content/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
+    @*Sweet Alerts*@
+    <script src="~/Scripts/SweetAlerts/sweetalert.min.js"></script>
+    @*main menu*@
+    <script src="~/Scripts/MainMenu/MainMenu.js"></script>
+    @*custom*@
+    <script src="~/Content/assets/global/scripts/metronic.js"></script>
+    <script src="~/Scripts/Modals/Bootstrap-dialog.js"></script>
+    <script src="~/Scripts/Modals/Layouts.js"></script>
+    <script src="~/Scripts/Dashboard/Dashboard.js"></script>
+    <script src="~/Scripts/Datatables/jquery.dataTables.min.js"></script>
+
+    @*calendar*@
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

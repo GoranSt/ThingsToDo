@@ -1,0 +1,17 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ThingsToDo.BL.ServiceHelpers;
+using ThingsToDo.Models.Datatables;
+using ThingsToDo.Models.Entity;
+using ThingsToDo.Models.ViewModels;
+
+namespace ThingsToDo.BL.Interfaces
+{
+    public interface ICategoriesService
+    {
+        Task<ServiceActionResult<List<CategoryModel>>> getAllCategoriesAsync(int userId);
+        Task<ServiceActionResult<CategoryModel>> CreateCategory(CategoryModel model);
+        Task<DataTableResultModel<TaskModel>> GetTasksAsync(int id, jQueryDataTableParamModel param);
+        string GetCategoryName(int categoryId);
+    }
+}
