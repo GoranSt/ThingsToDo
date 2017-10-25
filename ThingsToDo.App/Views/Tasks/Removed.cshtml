@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ThingsToDo.Models.ViewModels.TaskModel>
 @{
 
-    ViewBag.Title = "Removed";
+    ViewBag.Title = ThingsToDo.Resources.ThingsToDo.lblRemoved;
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -28,7 +28,6 @@
         <div class="mt-list-container list-todo" id="accordion1" role="tablist" aria-multiselectable="true">
             <div class="list-todo-line"></div>
             <ul>
-                @*// prv*@
                 @foreach (var group in Model.GroupBy(x => x.RemovedDate.ToString("dd MMMM, yyyy")))
                 {
                     <li class="mt-list-item">

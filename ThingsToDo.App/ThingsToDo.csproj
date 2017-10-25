@@ -6721,7 +6721,6 @@
     <Folder Include="Content\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Content\Charts\d3\" />
     <Folder Include="Content\Images\Custom\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

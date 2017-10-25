@@ -70,11 +70,56 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string lblAdd {
+            get {
+                return ResourceManager.GetString("lblAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add category.
+        /// </summary>
+        public static string lblAddCategory {
+            get {
+                return ResourceManager.GetString("lblAddCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add task.
+        /// </summary>
+        public static string lblAddTask {
+            get {
+                return ResourceManager.GetString("lblAddTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string lblAll {
             get {
                 return ResourceManager.GetString("lblAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Axies.
+        /// </summary>
+        public static string lblAxies {
+            get {
+                return ResourceManager.GetString("lblAxies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By.
+        /// </summary>
+        public static string lblBy {
+            get {
+                return ResourceManager.GetString("lblBy", resourceCulture);
             }
         }
         
@@ -88,11 +133,29 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string lblCategory {
+            get {
+                return ResourceManager.GetString("lblCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category name.
         /// </summary>
         public static string lblCategoryName {
             get {
                 return ResourceManager.GetString("lblCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string lblClose {
+            get {
+                return ResourceManager.GetString("lblClose", resourceCulture);
             }
         }
         
@@ -115,11 +178,38 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string lblError {
+            get {
+                return ResourceManager.GetString("lblError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error loading statistics.
         /// </summary>
         public static string lblErrorLoadingStatistics {
             get {
                 return ResourceManager.GetString("lblErrorLoadingStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while processing your request..
+        /// </summary>
+        public static string lblErrorOccurred {
+            get {
+                return ResourceManager.GetString("lblErrorOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished.
+        /// </summary>
+        public static string lblFinished {
+            get {
+                return ResourceManager.GetString("lblFinished", resourceCulture);
             }
         }
         
@@ -151,11 +241,74 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        public static string lblHigh {
+            get {
+                return ResourceManager.GetString("lblHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highest.
+        /// </summary>
+        public static string lblHighest {
+            get {
+                return ResourceManager.GetString("lblHighest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last 7 days.
         /// </summary>
         public static string lblLast7Days {
             get {
                 return ResourceManager.GetString("lblLast7Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locked out.
+        /// </summary>
+        public static string lblLockedOut {
+            get {
+                return ResourceManager.GetString("lblLockedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account has been locked out, please try again later..
+        /// </summary>
+        public static string lblLockedOutMessage {
+            get {
+                return ResourceManager.GetString("lblLockedOutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string lblLogOut {
+            get {
+                return ResourceManager.GetString("lblLogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low.
+        /// </summary>
+        public static string lblLow {
+            get {
+                return ResourceManager.GetString("lblLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lowest.
+        /// </summary>
+        public static string lblLowest {
+            get {
+                return ResourceManager.GetString("lblLowest", resourceCulture);
             }
         }
         
@@ -187,6 +340,33 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string lblNew {
+            get {
+                return ResourceManager.GetString("lblNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string lblNormal {
+            get {
+                return ResourceManager.GetString("lblNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pie.
+        /// </summary>
+        public static string lblPie {
+            get {
+                return ResourceManager.GetString("lblPie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Priority.
         /// </summary>
         public static string lblPriority {
@@ -201,6 +381,15 @@ namespace ThingsToDo.Resources {
         public static string lblQuarterly {
             get {
                 return ResourceManager.GetString("lblQuarterly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed.
+        /// </summary>
+        public static string lblRemoved {
+            get {
+                return ResourceManager.GetString("lblRemoved", resourceCulture);
             }
         }
         
@@ -223,11 +412,38 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string lblSave {
+            get {
+                return ResourceManager.GetString("lblSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select priority.
+        /// </summary>
+        public static string lblSelectPriority {
+            get {
+                return ResourceManager.GetString("lblSelectPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
         public static string lblStatistics {
             get {
                 return ResourceManager.GetString("lblStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        public static string lblTask {
+            get {
+                return ResourceManager.GetString("lblTask", resourceCulture);
             }
         }
         

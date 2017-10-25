@@ -1,8 +1,7 @@
 ﻿@using ThingsToDo.Resources;
 @{
-    ViewBag.Title = "Tasks";
+    ViewBag.Title = ThingsToDo.lblTasks;
     Layout = "~/Views/Shared/_MainLayout.cshtml";
-
 }
 @section Styles{
     <link href="~/Content/Datatables/jquery.dataTables.min.css" rel="stylesheet" />
@@ -10,17 +9,17 @@
 }
 
 <div class="form-group">
-    <button type="button" class="btn btn-lg green" onclick="createTask()">Add Task <i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-lg green" onclick="createTask()">@ThingsToDo.lblTask <i class="fa fa-plus"></i></button>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table id="TasksTable" class="display table table-striped table-bordered table-hover responsive nowrap" cellspacing="0" width="100%" style="width: 100%;">
+        <table id="TasksTable" class="display table table-striped table-bordered table-hover responsive nowrap" cellspacing="0" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>Priority</th>
-                    <th>Title</th>
-                    <th class="thDate">Description</th>
-                    <th>Until</th>
+                    <th>@ThingsToDo.lblPriority</th>
+                    <th>@ThingsToDo.lblTitle</th>
+                    <th class="thDate">@ThingsToDo.lblDescription</th>
+                    <th>@ThingsToDo.lblUntilDate</th>
                     <th class=""></th>
                     <th></th>
                 </tr>

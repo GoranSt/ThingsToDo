@@ -195,4 +195,76 @@
   <data name="lblRequiredField" xml:space="preserve">
     <value>Required field</value>
   </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="lblSelectPriority" xml:space="preserve">
+    <value>Select priority</value>
+  </data>
+  <data name="lblAddCategory" xml:space="preserve">
+    <value>Add category</value>
+  </data>
+  <data name="lblAddTask" xml:space="preserve">
+    <value>Add task</value>
+  </data>
+  <data name="lblAxies" xml:space="preserve">
+    <value>Axies</value>
+  </data>
+  <data name="lblCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="lblClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="lblFinished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="lblHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="lblHighest" xml:space="preserve">
+    <value>Highest</value>
+  </data>
+  <data name="lblLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="lblLowest" xml:space="preserve">
+    <value>Lowest</value>
+  </data>
+  <data name="lblNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="lblPie" xml:space="preserve">
+    <value>Pie</value>
+  </data>
+  <data name="lblRemoved" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="lblLogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="lblBy" xml:space="preserve">
+    <value>By</value>
+  </data>
+  <data name="lblError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="lblErrorOccurred" xml:space="preserve">
+    <value>An error occurred while processing your request.</value>
+  </data>
+  <data name="lblLockedOut" xml:space="preserve">
+    <value>Locked out</value>
+  </data>
+  <data name="lblLockedOutMessage" xml:space="preserve">
+    <value>This account has been locked out, please try again later.</value>
+  </data>
+  <data name="lblNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="lblTask" xml:space="preserve">
+    <value>Task</value>
+  </data>
 </root>

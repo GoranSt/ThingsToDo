@@ -1,18 +1,16 @@
-﻿var editor;
-var remove;
-var isExpiredDate = "";
-$(function () {
+﻿$(function () {
     
     DisplayTasks();
 
     var url = window.location.href;
     url = url.split('/');
-    if (url[url.length - 1] === 'Finished' || url[url.length - 1] === 'Removed') {
+
+    if (url[url.length - 1] === 'Finished' || url[url.length - 1] === 'Removed')
+    {
         appendBreadcrumb();
     }
 
     $.datepicker.formatDate('dd MM, yy');
-
 });
 
 function appendBreadcrumb() {
@@ -21,6 +19,8 @@ function appendBreadcrumb() {
 }
 
 function DisplayTasks() {
+
+    var isExpiredDate = "";
 
     $('table#TasksTable').dataTable({
         "language": {
@@ -38,8 +38,6 @@ function DisplayTasks() {
         "order": [[0, "asc"]],
         "sAjaxSource": "/Tasks/GetTasksEditableAsync?_=" + new Date().getTime(),
         "fnServerParams": function (aoData) {
-
-            //aoData.push({ name: 'languageID', value: $('#LanguageID').val() });
         },
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
             oSettings.jqXHR = $.ajax({
@@ -121,80 +119,6 @@ function DisplayTasks() {
             $('.dataTables_filter').css('margin-left', '0em;');
         }
     });
-
-    //$('#TasksTable').dataTable({
-    //    dom: "Bfrtip",
-    //    'bPaginate': true,
-    //    "bProcessing": false,
-    //    "bServerSide": true,
-    //    "pageLength": 10,
-    //    'responsive': true,
-    //    language: { search: "" },
-    //    "order": [[0, "asc"]],
-    //    "sAjaxSource": "/Tasks/GetTasksEditableAsync",
-    //    //"bServerSide": true,
-    //    "bSort": true,
-    //    //"bPaginate": true,
-    //    "bFilter": true,
-    //    "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-    //        oSettings.jqXHR = $.ajax({
-    //            "dataType": 'json',
-    //            "type": "GET",
-    //            "url": sSource,
-    //            "cache": false,
-    //            "data": aoData,
-    //            "beforeSend": function () {
-    //                Metronic.blockUI();
-    //            },
-    //            "success": function (response) {
-    //                fnCallback(response);
-    //                Metronic.unblockUI();
-    //            },
-    //            "error": function (response) {
-    //                showMessageDialog(response.statusText);
-    //                Metronic.unblockUI();
-    //            }
-    //        });
-    //    },
-    //    //ajax: "/Tasks/GetTasksEditableAsync",
-    //    "aoColumns": [
-    //        { "mData": "PriorityName" },
-    //        { "mData": "Title" },
-    //        { "mData": "Description" },
-    //        { "mData": "ToDataTableToDateFormat" },
-
-    //             {
-    //                 "mData": function (data, type, full) {
-    //                     debugger;
-
-    //                     if (data.isExpired) {
-    //                         isExpiredDate = "disabled";
-    //                     }
-    //                     else {
-    //                         isExpiredDate = "";
-    //                     }
-
-    //                     return '<button type="button" class="btn btn-info btn-block finishTask"  onclick="FinishTask(' + data.Id + ')"' + isExpiredDate + '>Finish</button>';
-    //                 }, "sClass": "center-alignment vertical-align-middle noBorderRight", "bSortable": false, 'sWidth': '10%'
-    //             },
-    //                {
-    //                    "mData": function (data, type, full) {
-    //                        return '<button type="button" class="btn btn-danger btn-block deleteTask"  onclick="DeleteTask(' + data.Id + ')"><span class="glyphicon glyphicon-trash"></span> Trash</button>';
-    //                    }, "sClass": "center-alignment vertical-align-middle noBorderRight", "bSortable": false, 'sWidth': '10%'
-    //                },
-    //    ],
-    //    order: [1, 'asc'],
-    //    buttons: [
-    //    ],
-    //    drawCallback: function (settings) {
-    //        debugger;
-    //        $('#TasksTable_filter').addClass("form-group");
-    //        $('input').addClass("form-control");
-    //        $('input').attr('placeholder', 'Search a task ...');
-    //        $('.dataTables_filter').css('margin-left', '0em;');
-
-    //    }
-    //});
 }
 
 function DeleteTask(taskId) {
@@ -211,6 +135,7 @@ function DeleteTask(taskId) {
         closeOnCancel: false
     },
     function (isConfirm) {
+
         if (isConfirm) {
 
             Metronic.blockUI();
@@ -218,14 +143,12 @@ function DeleteTask(taskId) {
             var id_row = $('.deleteTask').closest('tr[id="' + taskId + '"').attr('id');
             var nRow = $('#TasksTable tbody tr[id=' + id_row + ']')[0];
 
-
             $.post("/Tasks/DeleteTask", { taskId: taskId }, function (data) {
 
                 if (data.success) {
 
                     if ($('table#TasksTable').length) {
                         var table = $('table#TasksTable').dataTable({ bRetrieve: true });
-
                         table.fnDeleteRow(nRow, null, true);
                     }
                 }
@@ -267,37 +190,6 @@ function FinishTask(taskId) {
         Metronic.unblockUI();
     });
 }
-
-
-
-//function updateDate() {
-
-//    $('#DTE_Field_ToDataTableToDateFormat').unbind().bind("keydown", function (e) { // Bind for enter key press
-
-//        if (e.keyCode === 13) {
-//            debugger;
-//            if (this.value !== "") {
-
-//                var id = $(this).closest('tr').attr('id');
-//                var date = $(this).val();
-
-//                Metronic.blockUI();
-
-//                $.post('/Tasks/Update', { Id: id, ToDate: date }, function (data) {
-
-//                    if (data.success) {
-
-//                        swal("Done!", data.message, "success");
-//                        Metronic.unblockUI();
-//                    }
-//                }).error(function (jqXHR) {
-//                    showMessageDialog(jqXHR.responseText);
-//                    Metronic.unblockUI();
-//                });
-//            }
-//        }
-//    });
-//}
 
 function RegisterSearchOverride() {
     $(".dataTables_filter input")

@@ -2,7 +2,6 @@
 {
     public static class CheckPriority
     {
-
         public static string CheckTaskPriority(int taskPriority)
         {
             string result = "";

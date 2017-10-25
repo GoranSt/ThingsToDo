@@ -1,10 +1,8 @@
 ﻿@model ThingsToDo.Models.ViewModels.TaskModel
 
-
-
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    <h4 class="modal-title">Create task</h4>
+    <h4 class="modal-title">@ThingsToDo.Resources.ThingsToDo.lblAddTask</h4>
 </div>
 <div class="modal-body create-modal-body" style="float:left; width: 100%">
     @using (Html.BeginForm("Create", "Tasks", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmTaskCreate" }))
@@ -41,22 +39,22 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="Priority">Priotiry</label>
+            <label class="control-label" for="Priority">@ThingsToDo.Resources.ThingsToDo.lblPriority</label>
             <div class="form-group">
                 <select id="Priority" name="Priority" class="form-control input-large" required>
-                    <option value="">Select a priority</option>
-                    <option value="1">Lowest</option>
-                    <option value="2">Low</option>
-                    <option value="3">Normal</option>
-                    <option value="4">High</option>
-                    <option value="5">Higest</option>
+                    <option value="">@ThingsToDo.Resources.ThingsToDo.lblSelectPriority</option>
+                    <option value="1">@ThingsToDo.Resources.ThingsToDo.lblLowest</option>
+                    <option value="2">@ThingsToDo.Resources.ThingsToDo.lblLow</option>
+                    <option value="3">@ThingsToDo.Resources.ThingsToDo.lblNormal</option>
+                    <option value="4">@ThingsToDo.Resources.ThingsToDo.lblHigh</option>
+                    <option value="5">@ThingsToDo.Resources.ThingsToDo.lblHighest</option>
                 </select>
                 @*@Html.ValidationMessageFor(m => m.Priority)*@
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label" for="CategoryId">Category</label>
+            <label class="control-label" for="CategoryId">@ThingsToDo.Resources.ThingsToDo.lblCategory</label>
             @if (Model.CategoryId != 0)
             {
                 @Html.DropDownListFor(m => m.CategoryId, Model.Categories.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Title }), new { @class = "form-control input-large CategoryId", @id = "CategoryId", @Name = "CategoryId", disabled = "disabled" })
@@ -69,11 +67,9 @@
             }
 
         </div>
-
-
         <div class="modal-footer">
-            <button type="submit" id="btnCreateTask" class="btn btn-primary">Save</button>
-            <button type="button" class="btn default" data-dismiss="modal">Close</button>
+            <button type="submit" id="btnCreateTask" class="btn btn-primary">@ThingsToDo.Resources.ThingsToDo.lblSave</button>
+            <button type="button" class="btn default" data-dismiss="modal">@ThingsToDo.Resources.ThingsToDo.lblClose</button>
         </div>
     }
 </div>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ThingsToDo.Models.ViewModels.TaskModel>
 @{
 
-    ViewBag.Title = "Finished";
+    ViewBag.Title = ThingsToDo.Resources.ThingsToDo.lblFinished;
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -36,7 +36,7 @@
                             <i class="fa fa-table"></i>
                         </div>
                         <div class="list-todo-item dark">
-                            <a class="list-toggle-container collapsed" data-toggle="collapse" data-parent="#@group.FirstOrDefault().Id" onclick=" " href="#@group.FirstOrDefault().Id" aria-expanded="false">
+                            <a class="list-toggle-container collapsed" data-toggle="collapse" data-parent="#@group.FirstOrDefault().Id" href="#@group.FirstOrDefault().Id" aria-expanded="false">
                                 <div class="list-toggle done uppercase">
                                     <div class="list-toggle-title bold">@group.FirstOrDefault().FinishedDate.Value.ToString("dd MMMM, yyyy")</div>
                                     <div class="badge badge-default pull-right bold">@group.Count()</div>
