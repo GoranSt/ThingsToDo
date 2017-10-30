@@ -14,7 +14,7 @@ namespace ThingsToDo.BL.Interfaces
     public interface ITasksService
     {
         #region Tasks
-        Task<List<Tasks>> getAllTasksAsync();
+        Task<List<Tasks>> GetAllTasksAsync();
         Task<DataTableResultModel<TaskModel>> GetTasksAsync(int categoryId, jQueryDataTableParamModel param);
         Task<DataTableResultModel<TaskModel>> GetTasksEditableAsync(int categoryId, jQueryDataTableParamModel param);
         Task<ServiceActionResult<TaskModel>> CreateTask(TaskModel model);

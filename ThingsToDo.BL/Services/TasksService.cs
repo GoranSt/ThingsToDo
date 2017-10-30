@@ -19,34 +19,31 @@ namespace ThingsToDo.BL.Services
     {
         public async Task<ServiceActionResult<TaskModel>> CreateTask(TaskModel model)
         {
-
             using (var db = new ThingsToDo.DAL.ThingsToDoAppContext())
             {
-
                 var entity = new Tasks
                 {
-
                     Title = model.Title,
                     Description = model.Description,
                     FromDate = Convert.ToDateTime(model.FromDate),
                     ToDate = Convert.ToDateTime(model.ToDate),
                     CategoryId = model.CategoryId,
                     Priority = model.Priority,
-
-
                 };
 
                 db.Tasks.Add(entity);
+
                 var result = await db.SaveChangesAsync();
 
                 if (result > 0)
                 {
                     model.isFinished = false;
+
                     return new ServiceActionResult<TaskModel>(model, ServiceActionStatus.Created);
                 }
                 else
                 {
-                    return new ServiceActionResult<TaskModel>(model, ServiceActionStatus.Error, "Error adding new task!");
+                    return new ServiceActionResult<TaskModel>(model, ServiceActionStatus.Error, Resources.ThingsToDo.Global_InternalServerError);
                 }
             }
         }
@@ -55,7 +52,6 @@ namespace ThingsToDo.BL.Services
         {
             using (var db = new ThingsToDoAppContext())
             {
-
                 var entity = await db.Tasks.Where(x => x.Id == taskId).FirstOrDefaultAsync();
 
                 var removedTask = new RemovedTasks
@@ -68,6 +64,7 @@ namespace ThingsToDo.BL.Services
                 };
 
                 db.RemovedTasks.Add(removedTask);
+
                 var result = await db.SaveChangesAsync();
 
                 db.Tasks.Remove(entity);
@@ -83,7 +80,6 @@ namespace ThingsToDo.BL.Services
                     return new ServiceActionResult<RemovedTasks>(removedTask, ServiceActionStatus.Error); ;
                 }
             }
-
         }
 
         public async Task<bool> DeleteTask(jQueryDataTableParamModel param)
@@ -92,18 +88,14 @@ namespace ThingsToDo.BL.Services
             {
                 var entity = await db.Tasks.Where(x => x.Id == param.DT_RowId).FirstOrDefaultAsync();
 
-                db.Tasks.Remove(entity);
+                if (entity != null)
+                {
+                    db.Tasks.Remove(entity);
+                }
 
                 var result = await db.SaveChangesAsync();
 
-                if (result > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return result > 0 ? true : false;
             }
         }
 
@@ -114,7 +106,10 @@ namespace ThingsToDo.BL.Services
             {
                 var task = await db.Tasks.FirstOrDefaultAsync(x => x.Id == taskId);
 
-                task.FinishedDate = DateTime.UtcNow;
+                if (task != null)
+                {
+                    task.FinishedDate = DateTime.UtcNow;
+                }
 
                 var result = await db.SaveChangesAsync();
 
@@ -127,17 +122,17 @@ namespace ThingsToDo.BL.Services
                     return new ServiceActionResult<Tasks>(task, ServiceActionStatus.Error);
                 }
             }
-
         }
 
-
-        public async Task<List<Tasks>> getAllTasksAsync()
+        public async Task<List<Tasks>> GetAllTasksAsync()
         {
             var model = new List<Tasks>();
+
             using (var db = new DAL.ThingsToDoAppContext())
             {
                 model = await db.Tasks.Where(x => !x.FinishedDate.HasValue).ToListAsync();
             }
+
             return model;
         }
 
@@ -149,11 +144,13 @@ namespace ThingsToDo.BL.Services
             {
                 var query = categoryId != 0 ?
                     db.Tasks.Include(x => x.Category).Where(x => x.CategoryId == categoryId && !x.FinishedDate.HasValue).AsNoTracking()
-                  : db.Tasks.Include(x => x.Category).AsNoTracking().AsQueryable();
+                  : db.Tasks.Include(x => x.Category).AsNoTracking();
 
                 model.recordsTotal = await query.CountAsync();
+
                 var sortColumnIndex = param.iSortCol_0;
                 var sortDirection = param.sSortDir_0;
+
                 switch (sortColumnIndex)
                 {
                     case 1:
@@ -163,11 +160,13 @@ namespace ThingsToDo.BL.Services
                         query = query.OrderByDirection(x => x.Title, sortDirection);
                         break;
                 }
+
                 if (!string.IsNullOrEmpty(param.sSearch))
                 {
                     string searchTerm = param.sSearch.ToLower();
                     query = query.Where(x => x.Title.ToLower().Contains(searchTerm) || x.Description.ToLower().Contains(searchTerm));
                 }
+
                 model.recordsFiltered = await query.CountAsync();
 
                 var entities = await query.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToListAsync();
@@ -183,15 +182,12 @@ namespace ThingsToDo.BL.Services
                         Priority = x.Priority,
                         FromDate = x.FromDate,
                         ToDataTableToDateFormat = x.ToDate.ToString("dd/MM/yyyy"),
-                        //ToDate = x.ToDate.ToString("dd/MM/yyyy")
                         ToDate = x.ToDate
                     }).ToList();
                 }
                 model.sEcho = param.sEcho;
             }
             return model;
-
-
         }
 
         public async Task<DataTableResultModel<TaskModel>> GetTasksEditableAsync(int categoryId, jQueryDataTableParamModel param)
@@ -205,8 +201,10 @@ namespace ThingsToDo.BL.Services
                   : db.Tasks.Where(x => !x.FinishedDate.HasValue);
 
                 model.recordsTotal = await query.CountAsync();
+
                 var sortColumnIndex = param.iSortCol_0;
                 var sortDirection = param.sSortDir_0;
+
                 switch (sortColumnIndex)
                 {
                     case 1:
@@ -222,11 +220,13 @@ namespace ThingsToDo.BL.Services
                         query = query.OrderByDirection(x => x.Priority, sortDirection);
                         break;
                 }
+
                 if (!string.IsNullOrEmpty(param.sSearch))
                 {
                     string searchTerm = param.sSearch.ToLower();
                     query = query.Where(x => x.Title.ToLower().Contains(searchTerm) || x.Description.ToLower().Contains(searchTerm));
                 }
+
                 model.recordsFiltered = await query.CountAsync();
 
                 var entities = await query.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToListAsync();
@@ -255,8 +255,6 @@ namespace ThingsToDo.BL.Services
                 model.sEcho = param.sEcho;
             }
             return model;
-
-
         }
 
         public async Task<bool> Update(int Id, string column, string value)
@@ -267,16 +265,12 @@ namespace ThingsToDo.BL.Services
 
                 var task = await db.Tasks.Where(x => x.Id == Id && !x.FinishedDate.HasValue).FirstOrDefaultAsync();
 
-
                 if (column == Resources.ThingsToDo.lblTitle)
                 {
-
                     task.Title = value;
-
                 }
                 else if (column == Resources.ThingsToDo.lblDescription)
                 {
-
                     task.Description = value;
                 }
                 else
@@ -287,21 +281,15 @@ namespace ThingsToDo.BL.Services
                 var result = await db.SaveChangesAsync();
 
                 return result > 0 ? true : false;
-
             }
-
-
         }
-
 
         public async Task<List<TaskModel>> GetAllFinishedTasksAsync(int userId)
         {
-
             var finishedTasks = new List<TaskModel>();
 
             using (var db = new ThingsToDoAppContext())
             {
-
                 finishedTasks = await db.Tasks.Include(x => x.Category).Where(x => x.Category.UserId == userId && x.FinishedDate.HasValue).Select(x => new TaskModel
                 {
                     Id = x.Id,
@@ -314,6 +302,7 @@ namespace ThingsToDo.BL.Services
                     Priority = x.Priority
 
                 }).OrderBy(x => x.FinishedDate).ToListAsync();
+
                 if (finishedTasks.Any())
                 {
                     foreach (var task in finishedTasks)
@@ -333,7 +322,6 @@ namespace ThingsToDo.BL.Services
 
             using (var db = new ThingsToDoAppContext())
             {
-
                 removedTasks = await db.RemovedTasks.Include(x => x.Category).Where(x => x.Category.UserId == userId).Select(x => new TaskModel
                 {
                     Id = x.TaskId,

@@ -9,9 +9,9 @@ namespace ThingsToDo.BL.Interfaces
 {
     public interface ICategoriesService
     {
-        Task<ServiceActionResult<List<CategoryModel>>> getAllCategoriesAsync(int userId);
+        Task<ServiceActionResult<List<CategoryModel>>> GetAllCategoriesAsync(int userId);
         Task<ServiceActionResult<CategoryModel>> CreateCategory(CategoryModel model);
         Task<DataTableResultModel<TaskModel>> GetTasksAsync(int id, jQueryDataTableParamModel param);
-        string GetCategoryName(int categoryId);
+        Task<string> GetCategoryName(int categoryId);
     }
 }

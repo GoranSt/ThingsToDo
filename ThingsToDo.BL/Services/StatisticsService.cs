@@ -15,7 +15,7 @@ namespace ThingsToDo.BL.Services
 {
     public class StatisticsService : IStatisticsService
     {
-        public async Task<StatisticModel> GetAllStatistics(int userId)
+        public StatisticModel GetAllStatistics(int userId)
         {
 
             var today = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
@@ -31,9 +31,12 @@ namespace ThingsToDo.BL.Services
 
             using (var db = new DAL.ThingsToDoAppContext())
             {
-                var finishedTasks = await db.Tasks.Include(x => x.Category).Where(x => x.Category.UserId == userId && x.FinishedDate.HasValue).ToListAsync();
-                var remainingTasks = await db.Tasks.Include(x => x.Category).Where(x => x.Category.UserId == userId && !x.FinishedDate.HasValue).ToListAsync();
-                var removedTasks = await db.RemovedTasks.Include(x => x.Category).Where(x => x.Category.UserId == userId).ToListAsync();
+                var tasks = db.Tasks.Include(x => x.Category).Where(x => x.Category.UserId == userId).AsNoTracking();
+                var finishedTasks = tasks.Where(x => x.FinishedDate.HasValue);
+                var remainingTasks = tasks.Where(x => !x.FinishedDate.HasValue);
+
+                var removedTasks = db.RemovedTasks.Include(x => x.Category).Where(x => x.Category.UserId == userId);
+
                 var model = new StatisticModel()
                 {
                     // monthly
@@ -50,41 +53,40 @@ namespace ThingsToDo.BL.Services
                     QuarterFinishedTasks = finishedTasks.Any() ? finishedTasks.Where(x => x.FinishedDate > firstDayOfQuarter && x.FinishedDate < until).Count() : 0,
                     QuarterRemainingTasks = remainingTasks.Any() ? remainingTasks.Where(x => x.ToDate > firstDayOfQuarter && x.ToDate < until).Count() : 0,
                     QuarterRemovedTasks = removedTasks.Any() ? removedTasks.Where(x => x.RemovedDate > firstDayOfQuarter && x.RemovedDate < until).Count() : 0,
-
-
                 };
-             
-                    var eachDayOfWeekBefore = -1;
-                    var countTasks = 0;
 
-                    for (var i = 0; i < 7; i++)
+                var eachDayOfWeekBefore = -1;
+                var countTasks = 0;
+
+                for (var i = 0; i < 7; i++)
+                {
+                    countTasks = finishedTasks.Where(x => x.FinishedDate > DateTime.UtcNow.AddDays(eachDayOfWeekBefore) && x.FinishedDate < DateTime.UtcNow.AddDays(eachDayOfWeekBefore + 1)).Count();
+
+                    model.TimeSeriesChartListFinishedTasks.Add(new TimeSeriesChart()
                     {
-                   
-                        countTasks = finishedTasks.Where(x => x.FinishedDate > DateTime.UtcNow.AddDays(eachDayOfWeekBefore) && x.FinishedDate < DateTime.UtcNow.AddDays(eachDayOfWeekBefore + 1)).Count();
+                        Day = i.ToString(),
+                        TaskCount = countTasks
+                    });
 
-                        model.TimeSeriesChartListFinishedTasks.Add(new TimeSeriesChart()
-                        {
-                            Day = i.ToString(),
-                            TaskCount = countTasks
-                        });
-                   
-                        countTasks = removedTasks.Where(x => x.RemovedDate > DateTime.UtcNow.AddDays(eachDayOfWeekBefore) && x.RemovedDate < DateTime.UtcNow.AddDays(eachDayOfWeekBefore + 1)).Count();
-                        model.TimeSeriesChartListRemovedTasks.Add(new TimeSeriesChart()
-                        {
-                            Day = i.ToString(),
-                            TaskCount = countTasks
-                        });
-                   
-                        countTasks = remainingTasks.Where(x => x.ToDate > DateTime.UtcNow.AddDays(eachDayOfWeekBefore) && x.ToDate < DateTime.UtcNow.AddDays(eachDayOfWeekBefore + 1)).Count();
-                        model.TimeSeriesChartListRemainingTasks.Add(new TimeSeriesChart()
-                        {
-                            Day = i.ToString(),
-                            TaskCount = countTasks
-                        });
-                    
-                        eachDayOfWeekBefore--;
-                    }
-                
+                    countTasks = removedTasks.Where(x => x.RemovedDate > DateTime.UtcNow.AddDays(eachDayOfWeekBefore) && x.RemovedDate < DateTime.UtcNow.AddDays(eachDayOfWeekBefore + 1)).Count();
+
+                    model.TimeSeriesChartListRemovedTasks.Add(new TimeSeriesChart()
+                    {
+                        Day = i.ToString(),
+                        TaskCount = countTasks
+                    });
+
+                    countTasks = remainingTasks.Where(x => x.ToDate > DateTime.UtcNow.AddDays(eachDayOfWeekBefore) && x.ToDate < DateTime.UtcNow.AddDays(eachDayOfWeekBefore + 1)).Count();
+
+                    model.TimeSeriesChartListRemainingTasks.Add(new TimeSeriesChart()
+                    {
+                        Day = i.ToString(),
+                        TaskCount = countTasks
+                    });
+
+                    eachDayOfWeekBefore--;
+                }
+
                 return model;
             }
         }

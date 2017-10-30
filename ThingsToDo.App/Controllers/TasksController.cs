@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Data.Entity;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using ThingsToDo.App.Helpers;
 using ThingsToDo.BL.Interfaces;
 using ThingsToDo.BL.ServiceHelpers;
-using ThingsToDo.BL.Services;
-using ThingsToDo.Models;
 using ThingsToDo.Models.Datatables;
-using ThingsToDo.Models.Entity;
 using ThingsToDo.Models.ViewModels;
 
 namespace ThingsToDo.App.Controllers
@@ -25,19 +19,25 @@ namespace ThingsToDo.App.Controllers
             _categoriesService = categoriesService;
         }
 
-        // GET: Tasks
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         public async Task<ActionResult> Create(int categoryId = 0)
         {
             try
             {
-                var userId = User.Identity.GetUserId<int>();
                 var model = new TaskModel();
-                var categories = await _categoriesService.getAllCategoriesAsync(userId);
+                var userId = User.Identity.GetUserId<int>();
+
+                var categories = await _categoriesService.GetAllCategoriesAsync(userId);
+
                 if (categories.Status == ServiceActionStatus.Ok)
                 {
                     model.CategoryId = categoryId;
                     model.Categories = categories.Entity;
+
                     return PartialView("_CreateTask", model);
                 }
                 else
@@ -45,12 +45,12 @@ namespace ThingsToDo.App.Controllers
                     return JError();
                 }
             }
-
             catch (Exception ex)
             {
                 return JError();
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Create(TaskModel model)
         {
@@ -59,23 +59,21 @@ namespace ThingsToDo.App.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = await _taskService.CreateTask(model);
+
                     if (result.Status == ServiceActionStatus.Created)
                     {
                         return Json(new
                         {
                             success = true,
-                            message = "Successfully created task"
+                            message = Resources.ThingsToDo.lblTaskCreated
                         }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        if (result.Exception != null)
-                        {
-                            throw result.Exception;
-                        }
-                        ModelState.AddModelError("", "Internal Server Error!");
+                        return JError();
                     }
                 }
+
                 return View(model);
             }
             catch (Exception ex)
@@ -83,6 +81,7 @@ namespace ThingsToDo.App.Controllers
                 return JError();
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Update(int pk, string name, string value)
         {
@@ -96,16 +95,14 @@ namespace ThingsToDo.App.Controllers
                     {
                         success = true,
                         message = name == Resources.ThingsToDo.lblTitle ? 
-                        "Successfully updated task" : name == Resources.ThingsToDo.lblDescription ? 
-                        "Successfully updated description" : "Successfully updated date"
+                        Resources.ThingsToDo.lblTitleUpdated : name == Resources.ThingsToDo.lblDescription ?
+                        Resources.ThingsToDo.lblDescriptionUpdated : Resources.ThingsToDo.lblDateUpdated
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Internal Server Error!");
+                    return JError();
                 }
-
-                return View();
             }
             catch (Exception ex)
             {
@@ -121,19 +118,21 @@ namespace ThingsToDo.App.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = await _taskService.DeleteTask(param);
+                    
                     if (result)
                     {
                         return Json(new
                         {
                             success = true,
-                            message = "Successfully deleted task"
+                            message = Resources.ThingsToDo.lblTaskDeleted
                         }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Internal Server Error!");
+                        ModelState.AddModelError("", Resources.ThingsToDo.Global_InternalServerError);
                     }
                 }
+
                 return View(param);
             }
             catch (Exception ex)
@@ -141,7 +140,6 @@ namespace ThingsToDo.App.Controllers
                 return JError();
             }
         }
-
 
         public async Task<ActionResult> GetTasksAsync(jQueryDataTableParamModel param, int categoryId = 0)
         {
@@ -166,8 +164,7 @@ namespace ThingsToDo.App.Controllers
 
                 if (result.Status == ServiceActionStatus.Deleted)
                 {
-                    return JStatus(true, result.Entity.Title + " task removed successfully!");
-
+                    return JStatus(true, result.Entity.Title + " " + Resources.ThingsToDo.lblTaskDeleted);
                 }
                 else
                 {
@@ -178,7 +175,6 @@ namespace ThingsToDo.App.Controllers
             {
                 return JError();
             }
-
         }
 
         public async Task<ActionResult> FinishTask(int taskId)
@@ -189,8 +185,7 @@ namespace ThingsToDo.App.Controllers
 
                 if (result.Status == ServiceActionStatus.Finished)
                 {
-                    return JStatus(true, result.Entity.Title + " task finished successfully!");
-
+                    return JStatus(true, result.Entity.Title + " " + Resources.ThingsToDo.lblTaskFinished);
                 }
                 else
                 {
@@ -201,9 +196,7 @@ namespace ThingsToDo.App.Controllers
             {
                 return JError();
             }
-
         }
-
 
         public async Task<ActionResult> GetTasksEditableAsync(jQueryDataTableParamModel param, int categoryId = 0)
         {
@@ -219,12 +212,6 @@ namespace ThingsToDo.App.Controllers
             }
         }
 
-        public ActionResult Index()
-        {
-
-            return View();
-
-        }
         public async Task<ActionResult> Finished()
         {
             try
@@ -271,12 +258,5 @@ namespace ThingsToDo.App.Controllers
             }
         }
 
-        public ActionResult Details()
-        {
-
-            return View();
-        }
-
-     
     }
 }

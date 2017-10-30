@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using ThingsToDo.BL.Interfaces;
 
@@ -11,7 +8,6 @@ namespace ThingsToDo.App.Controllers
 {
     public class StatisticsController : BaseController
     {
-
         private readonly ITasksService _taskService;
         private readonly ICategoriesService _categoriesService;
         private readonly IStatisticsService _statisticsService;
@@ -23,20 +19,18 @@ namespace ThingsToDo.App.Controllers
             _statisticsService = statisticsService;
         }
 
-        // GET: Statistics
         public ActionResult Index()
         {
-           
             return View();
         }
 
-        public async Task<ActionResult> GetStatistics()
+        public ActionResult GetStatistics()
         {
             try
             {
                 var userId = User.Identity.GetUserId<int>();
 
-                var result = await _statisticsService.GetAllStatistics(userId);
+                var result =  _statisticsService.GetAllStatistics(userId);
 
                 if(result != null)
                 {
@@ -50,13 +44,7 @@ namespace ThingsToDo.App.Controllers
             catch (Exception ex)
             {
                 return JError();
-
             }
-
-            return Json(new { }, JsonRequestBehavior.AllowGet);
-
         }
-
-
     }
 }

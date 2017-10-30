@@ -9,17 +9,8 @@ namespace ThingsToDo.BL.Interfaces
 {
     public interface IStatisticsService
     {
-
         #region Public
-
-        Task<StatisticModel> GetAllStatistics(int userId);
-
+        StatisticModel GetAllStatistics(int userId);
         #endregion
-
-        #region Private
-
-        #endregion
-
-
     }
 }

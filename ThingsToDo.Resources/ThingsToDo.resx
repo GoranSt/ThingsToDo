@@ -267,4 +267,31 @@
   <data name="lblTask" xml:space="preserve">
     <value>Task</value>
   </data>
+  <data name="lblCategoryCreated" xml:space="preserve">
+    <value>Category created successfully!</value>
+  </data>
+  <data name="lblDateUpdated" xml:space="preserve">
+    <value>Date updated successfully!</value>
+  </data>
+  <data name="lblDescriptionUpdated" xml:space="preserve">
+    <value>Description updated successfully!</value>
+  </data>
+  <data name="lblFound" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="lblTaskCreateError" xml:space="preserve">
+    <value>Error adding new task!</value>
+  </data>
+  <data name="lblTaskDeleted" xml:space="preserve">
+    <value>Task deleted successfully!</value>
+  </data>
+  <data name="lblTaskFinished" xml:space="preserve">
+    <value>Task finished successfully!</value>
+  </data>
+  <data name="lblTaskUpdated" xml:space="preserve">
+    <value>Task updated successfully!</value>
+  </data>
+  <data name="lblTitleUpdated" xml:space="preserve">
+    <value>Title updated successfully!</value>
+  </data>
 </root>

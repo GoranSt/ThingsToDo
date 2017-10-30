@@ -142,6 +142,15 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category created successfully!.
+        /// </summary>
+        public static string lblCategoryCreated {
+            get {
+                return ResourceManager.GetString("lblCategoryCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category name.
         /// </summary>
         public static string lblCategoryName {
@@ -169,11 +178,29 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date updated successfully!.
+        /// </summary>
+        public static string lblDateUpdated {
+            get {
+                return ResourceManager.GetString("lblDateUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string lblDescription {
             get {
                 return ResourceManager.GetString("lblDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description updated successfully!.
+        /// </summary>
+        public static string lblDescriptionUpdated {
+            get {
+                return ResourceManager.GetString("lblDescriptionUpdated", resourceCulture);
             }
         }
         
@@ -228,6 +255,15 @@ namespace ThingsToDo.Resources {
         public static string lblFinishedTasks {
             get {
                 return ResourceManager.GetString("lblFinishedTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found.
+        /// </summary>
+        public static string lblFound {
+            get {
+                return ResourceManager.GetString("lblFound", resourceCulture);
             }
         }
         
@@ -457,6 +493,33 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error adding new task!.
+        /// </summary>
+        public static string lblTaskCreateError {
+            get {
+                return ResourceManager.GetString("lblTaskCreateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task deleted successfully!.
+        /// </summary>
+        public static string lblTaskDeleted {
+            get {
+                return ResourceManager.GetString("lblTaskDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task finished successfully!.
+        /// </summary>
+        public static string lblTaskFinished {
+            get {
+                return ResourceManager.GetString("lblTaskFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tasks.
         /// </summary>
         public static string lblTasks {
@@ -475,6 +538,15 @@ namespace ThingsToDo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task updated successfully!.
+        /// </summary>
+        public static string lblTaskUpdated {
+            get {
+                return ResourceManager.GetString("lblTaskUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string lblTitle {
@@ -489,6 +561,15 @@ namespace ThingsToDo.Resources {
         public static string lblTitleRequired {
             get {
                 return ResourceManager.GetString("lblTitleRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title updated successfully!.
+        /// </summary>
+        public static string lblTitleUpdated {
+            get {
+                return ResourceManager.GetString("lblTitleUpdated", resourceCulture);
             }
         }
         
