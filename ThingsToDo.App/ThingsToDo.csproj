@@ -5628,8 +5628,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Charts\c3\c3.css" />
-    <Content Include="Content\Datatables\buttons.dataTables.min.css" />
-    <Content Include="Content\Datatables\select.dataTables.min.css" />
     <Content Include="Content\Images\Accordion-background\img\body-bg.png" />
     <Content Include="Content\SweetAlerts\sweetalert.css" />
     <Content Include="fonts\googleapies.css" />
@@ -5638,7 +5636,6 @@
     <Content Include="Scripts\Charts\c3\c3.min.js" />
     <Content Include="Content\Datatables\bootstrap-datatables-css.css" />
     <Content Include="Content\Datatables\custom-datatables.css" />
-    <Content Include="Content\Datatables\editor.dataTables.min.css" />
     <Content Include="Content\Datatables\jquery.dataTables.min.css" />
     <Content Include="Content\Images\background\1.jpg" />
     <Content Include="Content\Images\background\2.jpg" />
@@ -6674,8 +6671,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -6696,18 +6691,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Tasks\Create.cshtml" />
-    <Content Include="Views\Tasks\Delete.cshtml" />
-    <Content Include="Views\Tasks\Edit.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_LoginRegister.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Delete.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
-    <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Tasks\_CreateTask.cshtml" />
     <Content Include="Views\Categories\_CreateCategory.cshtml" />
     <Content Include="Views\Categories\Show.cshtml" />

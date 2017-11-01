@@ -10,7 +10,6 @@ using ThingsToDo.DAL;
 using ThingsToDo.Models.Datatables;
 using ThingsToDo.Models.Entity;
 using ThingsToDo.Models.ViewModels;
-using ThingsToDo.Resources;
 
 
 namespace ThingsToDo.BL.Services

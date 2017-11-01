@@ -2,8 +2,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    <h4 class="modal-title">@ThingsToDo.Resources.ThingsToDo.lblAddCategory
-    </h4>
+    <h4 class="modal-title">@ThingsToDo.Resources.ThingsToDo.lblAddCategory </h4>
 </div>
 <div class="modal-body create-modal-body" style="float:left; width: 100%">
     @using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data", id = "CategoryCreate" }))
@@ -12,21 +11,19 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.UserId);
     
-
         <div class="form-group">
             <div>
                 @Html.Label("Title")
                 @Html.TextBoxFor(model => model.Title, null, new { @class = "form-control" })
-
             </div>
         </div>
-   
         <div class="modal-footer">
             <button type="submit" id="btnCreateCategory" class="btn btn-primary">@ThingsToDo.Resources.ThingsToDo.lblSave</button>
             <button type="button" class="btn default" data-dismiss="modal">@ThingsToDo.Resources.ThingsToDo.lblClose</button>
         </div>
     }
 </div>
+
 <script src="~/Scripts/Categories/_CreateCategory.js"></script>
 
 
