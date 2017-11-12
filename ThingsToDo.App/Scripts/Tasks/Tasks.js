@@ -91,32 +91,37 @@ function DisplayTasks() {
             data: null,
             render: function (data, type, full, meta) {
                
-                return '<a href="#" data-pk="' + full.Id + '" class="editable" data-name="' + resourceTitle + '">' + data + '</a>';
+                return '<a href="#" data-pk="' + full.Id + '" class="editableText" data-name="' + resourceTitle + '">' + data + '</a>';
             }
         },
              {
                  targets: [2],
                  data: null,
                  render: function (data, type, full, meta) {
-                     return '<a href="#" data-pk="' + full.Id + '" class="editable" data-name="' + resourceDescription + '">' + data + '</a>';
+                     return '<a href="#" data-pk="' + full.Id + '" class="editableText" data-name="' + resourceDescription + '">' + data + '</a>';
                  }
              },
                   {
                       targets: [3],
                       data: null,
                       render: function (data, type, full, meta) {
-                          return '<a href="#" data-pk="' + full.Id + '" class="editable" data-name="' + "ToDate" + '">' + data + '</a>';
+                          return '<a href="#" data-pk="' + full.Id + '" class="editableDate" data-name="' + "ToDate" + '">' + data + '</a>';
                       }
                   }
         ],
         "drawCallback": function (settings) {
+
             GenerateEditableFields();
             RegisterSearchOverride();
-
+           
             $('#TasksTable_filter').addClass("form-group");
             $('input').addClass("form-control");
             $('input').attr('placeholder', 'Search a task ...');
             $('.dataTables_filter').css('margin-left', '0em;');
+
+            $('.editableDate').on('click', function () {
+                $(this).closest('td').css('padding-right', '55px');
+            });
         }
     });
 }
@@ -220,7 +225,7 @@ function GenerateEditableFields() {
     if (viewportWidth > 600) {
         var fieldName = null;
         var newValue = null;
-        $('#TasksTable .editable').each(function () {
+        $('#TasksTable .editableText').each(function () {
 
             $(this).editable({
                 mode: 'inline',
@@ -250,6 +255,36 @@ function GenerateEditableFields() {
 
                 }
             });
+        });
+
+        $('#TasksTable .editableDate').editable({
+            mode: 'inline',
+            type: 'date',
+            format: 'dd MM, yyyy',
+            //categoryID: $(this).attr('data-categoryID'),
+            name: $(this).attr('data-name'),
+            url: '/Tasks/Update/',
+            title: 'Enter ' + $(this).attr('data-name'),
+            validate: function (value) {
+                fieldName = $(this).attr('data-name');
+                if ($.trim(value) === '') {
+                    return resourceRequiredField;
+                }
+                newValue = value;
+            },
+            success: function (data) {
+
+                if (!data.success) {
+                    return data.message;
+                }
+
+                var table = $('table#TasksTable').dataTable({ bRetrieve: true });
+                table.fnDraw();
+
+                var tableRowData = table.api().row($(this).closest('tr')).data();
+                tableRowData[fieldName] = newValue;
+
+            }
         });
     }
 }

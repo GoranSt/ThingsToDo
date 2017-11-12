@@ -1,6 +1,5 @@
 ﻿@using ThingsToDo.Resources;
 @{
-    ViewBag.Category = ViewBag.Title;
     ViewBag.Title = ThingsToDo.lblCategory + ": " + ViewBag.Title;
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
@@ -34,7 +33,7 @@
 
 @section scripts {
     <script>
-        var resourceCategoryTitle = '@ViewBag.Category';
+        var resourceCategoryTitle = '@ViewBag.Title';
         var resourceTitle = '@ThingsToDo.lblTitle';
         var resourceDescription = '@ThingsToDo.lblDescription';
         var resourceAll = '@ThingsToDo.lblAll';

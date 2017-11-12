@@ -66,7 +66,6 @@ function DisplayTasks() {
 
                      {
                          "mData": function (data, type, full) {
-                             debugger;
                             
                              if (data.isExpired) {
                                  isExpiredDate = "disabled";
@@ -89,26 +88,27 @@ function DisplayTasks() {
                 targets: [1],
                 data: null,
                 render: function (data, type, full, meta) {
-                    debugger;
-                    return '<a href="#" data-pk="' + full.Id + '" class="editable" data-name="' + resourceTitle + '">' + data + '</a>';
+                   
+                    return '<a href="#" data-pk="' + full.Id + '" class="editableText" data-name="' + resourceTitle + '">' + data + '</a>';
                 }
             },
                  {
                      targets: [2],
                      data: null,
                      render: function (data, type, full, meta) {
-                         return '<a href="#" data-pk="' + full.Id + '" class="editable" data-name="' + resourceDescription + '">' + data + '</a>';
+                         return '<a href="#" data-pk="' + full.Id + '" class="editableText" data-name="' + resourceDescription + '">' + data + '</a>';
                      }
                  },
                       {
                           targets: [3],
                           data: null,
                           render: function (data, type, full, meta) {
-                              return '<a href="#" data-pk="' + full.Id + '" class="editable" data-name="' + "ToDate" + '">' + data + '</a>';
+                              return '<a href="#" data-pk="' + full.Id + '" class="editableDate" data-name="' + "ToDate" + '">' + data + '</a>';
                           }
                       }
             ],
             "drawCallback": function (settings) {
+
                 GenerateEditableFields();
                 RegisterSearchOverride();
 
@@ -116,85 +116,12 @@ function DisplayTasks() {
                 $('input').addClass("form-control");
                 $('input').attr('placeholder', 'Search task ...');
                 $('.dataTables_filter').css('margin-left', '0em;');
+
+                $('.editableDate').on('click', function () {
+                    $(this).closest('td').css('padding-right', '55px');
+                });
             }
         });
-
-    
-
-
-    //$('#TasksTable').dataTable({
-    //    dom: "Bfrtip",
-    //    'bPaginate': true,
-    //    "bProcessing": false,
-    //    "bServerSide": true,
-    //    "pageLength": 10,
-    //    'responsive': true,
-    //    "bSort": true,
-    //    "bFilter": true,
-    //    language: { search: "" },
-    //    "order": [[0, "asc"]],
-    //    "sAjaxSource": "/Tasks/GetTasksEditableAsync",
-    //    "fnServerParams": function (aoData) {
-    //        aoData.push({ "name": "categoryId", "value": GetCategoryId() });
-    //    },
-    //    "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
-    //        oSettings.jqXHR = $.ajax({
-    //            "dataType": 'json',
-    //            "type": "GET",
-    //            "url": sSource,
-    //            "cache": false,
-    //            "data": aoData,
-    //            "beforeSend": function () {
-    //                Metronic.blockUI();
-    //            },
-    //            "success": function (response) {
-    //                fnCallback(response);
-    //                Metronic.unblockUI();
-    //            },
-    //            "error": function (response) {
-    //                showMessageDialog(response.statusText);
-    //                Metronic.unblockUI();
-    //            }
-    //        });
-    //    },
-    //    //ajax: "/Tasks/GetTasksEditableAsync",
-    //    "aoColumns": [
-    //        { "mData": "PriorityName" },
-    //        { "mData": "Title" },
-    //        { "mData": "Description" },
-    //         { "mData": "ToDataTableToDateFormat" },
-    //             {
-    //                 "mData": function (data, type, full) {
-    //                     debugger;
-
-    //                     if (data.isExpired) {
-    //                         isExpiredDate = "disabled";
-    //                     }
-    //                     else {
-    //                         isExpiredDate = "";
-    //                     }
-
-    //                     return '<button type="button" class="btn btn-info btn-block finishTask"  onclick="FinishTask(' + data.Id + ')"' + isExpiredDate + '>Finish</button>';
-    //                 }, "sClass": "center-alignment vertical-align-middle noBorderRight", "bSortable": false, 'sWidth': '10%'
-    //             },
-    //                {
-    //                    "mData": function (data, type, full) {
-    //                        return '<button type="button" class="btn btn-danger btn-block deleteTask"  onclick="DeleteTask(' + data.Id + ')"><span class="glyphicon glyphicon-trash"></span> Trash</button>';
-    //                    }, "sClass": "center-alignment vertical-align-middle noBorderRight", "bSortable": false, 'sWidth': '10%'
-    //                },
-    //    ],
-    //    order: [1, 'asc'],
-    //    buttons: [
-    //    ],
-    //    drawCallback: function (settings) {
-    //        debugger;
-    //        $('#TasksTable_filter').addClass("form-group");
-    //        $('input').addClass("form-control");
-    //        $('input').attr('placeholder', 'Search task...');
-    //        $('.dataTables_filter').css('margin-left', '0em;');
-
-    //    }
-    //});
 }
 
 function DeleteTask(taskId) {
@@ -245,7 +172,7 @@ function DeleteTask(taskId) {
 
 function FinishTask(taskId) {
     Metronic.blockUI();
-    debugger;
+    
     var id_row = $('.finishTask').closest('tr[id="' + taskId + '"').attr('id');
     var nRow = $('#TasksTable tbody tr[id=' + id_row + ']')[0];
 
@@ -273,7 +200,7 @@ function updateTitle() {
     $('#DTE_Field_Title').unbind().bind("keydown", function (e) { // Bind for enter key press
 
         if (e.keyCode === 13) {
-            debugger;
+            
             if (this.value.length >= 3 || this.value === "") {
 
                 var id = $(this).closest('tr').attr('id');
@@ -309,7 +236,7 @@ function updateDescription() {
     $('#DTE_Field_Description').unbind().bind("keydown", function (e) { // Bind for enter key press
 
         if (e.keyCode === 13) {
-            debugger;
+            
             if (this.value !== "") {
 
                 var id = $(this).closest('tr').attr('id');
@@ -332,35 +259,6 @@ function updateDescription() {
         }
     });
 }
-
-//function updateDate() {
-
-//    $('#DTE_Field_ToDataTableToDateFormat').unbind().bind("keydown", function (e) { // Bind for enter key press
-//        debugger;   
-//        if (e.keyCode === 13) {
-//            debugger;
-//            if (this.value !== "") {
-
-//                var id = $(this).closest('tr').attr('id');
-//                var date = $(this).val();
-
-//                Metronic.blockUI();
-
-//                $.post('/Tasks/Update', { Id: id, ToDate: date }, function (data) {
-
-//                    if (data.success) {
-
-//                        swal("Done!", data.message, "success");
-//                        Metronic.unblockUI();
-//                    }
-//                }).error(function (jqXHR) {
-//                    showMessageDialog(jqXHR.responseText);
-//                    Metronic.unblockUI();
-//                });
-//            }
-//        }
-//    });
-//}
 
 function RegisterSearchOverride() {
     $(".dataTables_filter input")
@@ -391,7 +289,7 @@ function GenerateEditableFields() {
     if (viewportWidth > 600) {
         var fieldName = null;
         var newValue = null;
-        $('#TasksTable .editable').each(function () {
+        $('#TasksTable .editableText').each(function () {
 
             $(this).editable({
                 mode: 'inline',
@@ -422,6 +320,37 @@ function GenerateEditableFields() {
                 }
             });
         });
+
+        $('#TasksTable .editableDate').editable({
+            mode: 'inline',
+            type: 'date',
+            format: 'dd MM, yyyy',
+            //categoryID: $(this).attr('data-categoryID'),
+            name: $(this).attr('data-name'),
+            url: '/Tasks/Update/',
+            title: 'Enter ' + $(this).attr('data-name'),
+            validate: function (value) {
+                fieldName = $(this).attr('data-name');
+                if ($.trim(value) === '') {
+                    return resourceRequiredField;
+                }
+                newValue = value;
+            },
+            success: function (data) {
+
+                if (!data.success) {
+                    return data.message;
+                }
+
+                var table = $('table#TasksTable').dataTable({ bRetrieve: true });
+                table.fnDraw();
+
+                var tableRowData = table.api().row($(this).closest('tr')).data();
+                tableRowData[fieldName] = newValue;
+
+            }
+        });
+
     }
 }
 

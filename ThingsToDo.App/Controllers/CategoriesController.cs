@@ -19,7 +19,13 @@ namespace ThingsToDo.App.Controllers
             _categoriesService = categoriesService;
             _taskService = taskService;
         }
-            
+        public async Task<ActionResult> Show(int ID)
+        {
+            ViewBag.Title = await _categoriesService.GetCategoryName(ID);
+
+            return View();
+        }
+
         public async Task<ActionResult> GetAllCategories()
         {
             try
@@ -44,7 +50,7 @@ namespace ThingsToDo.App.Controllers
                 return JError();
             }
         }
-     
+
         [HttpPost]
         public async Task<ActionResult> Create(CategoryModel model)
         {
@@ -53,7 +59,7 @@ namespace ThingsToDo.App.Controllers
                 if (ModelState.IsValid)
                 {
                     model.UserId = User.Identity.GetUserId<int>();
-                     
+
                     var result = await _categoriesService.CreateCategory(model);
 
                     if (result.Status == ServiceActionStatus.Created)
